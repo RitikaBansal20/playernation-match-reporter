@@ -1,56 +1,169 @@
-# Welcome to your Expo app 👋
+# ⚽ PlayerNation Match Reporter
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+AI-powered football match analysis application built using React Native, Expo, TypeScript, and Groq LLM.
 
-## Get started
+---
 
-1. Install dependencies
+## Overview
 
-   ```bash
-   npm install
-   ```
+PlayerNation Match Reporter transforms raw football match event data into readable AI-generated match reports.
 
-2. Start the app
+Using the Wyscout FIFA World Cup dataset, the application extracts key match statistics and generates professional football analysis using a Large Language Model.
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## Features
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Match Selection
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+* Browse available FIFA World Cup matches
+* Select a match to generate a report
 
-## Get a fresh project
+### Match Statistics
 
-When you're ready, run:
+* Total Passes
+* Successful Passes
+* Failed Passes
+* Shots
+* Goals
+* Duels
+* Saves
+* Yellow Cards
+* Red Cards
 
-```bash
-npm run reset-project
+### AI Match Report
+
+Generates:
+
+* Match Summary
+* Tactical Analysis
+* Key Moments
+* Standout Players
+* Areas for Improvement
+
+### Match Insights Dashboard
+
+Displays key performance metrics in a card-based UI.
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* React Native
+* Expo
+* TypeScript
+* Expo Router
+
+### AI
+
+* Groq API
+* Llama 3.1 8B Instant
+
+### Data
+
+* Wyscout Soccer Match Event Dataset
+* FIFA World Cup Event Data
+
+---
+
+## Project Structure
+
+```text
+src/
+├── app/
+│   ├── index.tsx
+│   ├── report.tsx
+│
+├── components/
+│   ├── StatCard.tsx
+│
+├── services/
+│   ├── llm.ts
+│   ├── reportGenerator.ts
+│
+├── store/
+├── types/
+│
+assets/
+└── data/
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-### Other setup steps
+## Setup
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+### Install Dependencies
 
-## Learn more
+```bash
+npm install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### Configure Environment Variables
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Create a `.env` file:
 
-## Join the community
+```env
+EXPO_PUBLIC_GROQ_API_KEY=YOUR_GROQ_API_KEY
+```
 
-Join our community of developers creating universal apps.
+### Start Application
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+npx expo start
+```
+
+---
+
+## Architecture
+
+```text
+Match Selection
+        ↓
+Load Match JSON
+        ↓
+Feature Extraction
+        ↓
+Prompt Generation
+        ↓
+Groq LLM
+        ↓
+AI Match Report
+```
+
+---
+
+## Dataset
+
+Wyscout Soccer Match Event Dataset
+
+FIFA World Cup match event files were used for analysis.
+
+---
+
+## Error Handling
+
+* API failure handling
+* Loading states
+* Invalid match protection
+* Graceful AI report fallback
+
+---
+
+## Future Improvements
+
+* PDF Report Export
+* Player Ratings
+* Match Comparison
+* Performance Charts
+* Offline Caching
+* Team & Player Analytics
+
+---
+
+## Author
+
+Ritika Bansal
+
+PlayerNation Software Engineer Assignment Submission
