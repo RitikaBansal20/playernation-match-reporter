@@ -1,98 +1,162 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { router } from "expo-router";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
-  return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+const matches = [
+  {
+    id: "1694390",
+    home: "🇦🇷 Argentina",
+    away: "🇫🇷 France",
+    score: "3 - 2",
+    shots: 22,
+    passes: 780,
+  },
+  {
+    id: "1694391",
+    home: "🇧🇷 Brazil",
+    away: "🇧🇪 Belgium",
+    score: "2 - 1",
+    shots: 18,
+    passes: 640,
+  },
+  {
+    id: "1694392",
+    home: "🇩🇪 Germany",
+    away: "🇸🇪 Sweden",
+    score: "2 - 0",
+    shots: 15,
+    passes: 590,
+  },
+];
 
 export default function HomeScreen() {
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+    <ScrollView
+      style={{
+        flex: 1,
+        backgroundColor: "#F5F7FA",
+      }}
+    >
+      <View
+        style={{
+          padding: 24,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 36,
+            fontWeight: "700",
+          }}
+        >
+          ⚽ PlayerNation
+        </Text>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+        <Text
+          style={{
+            color: "#64748B",
+            marginTop: 8,
+            marginBottom: 30,
+            fontSize: 18,
+          }}
+        >
+          AI Powered Football Match Analysis
+        </Text>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+        {matches.map((match) => (
+          <TouchableOpacity
+            key={match.id}
+            onPress={() =>
+              router.push({
+                pathname: "/report",
+                params: {
+                  matchId: match.id,
+                },
+              })
+            }
+            style={{
+              backgroundColor: "#FFFFFF",
+              padding: 24,
+              borderRadius: 20,
+              marginBottom: 20,
+              shadowColor: "#000",
+              shadowOpacity: 0.08,
+              shadowRadius: 10,
+              elevation: 5,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "700",
+              }}
+            >
+              {match.home}
+            </Text>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "700",
+                marginTop: 5,
+              }}
+            >
+              {match.away}
+            </Text>
+
+            <View
+              style={{
+                marginTop: 15,
+                alignSelf: "flex-start",
+                backgroundColor: "#E0E7FF",
+                paddingHorizontal: 14,
+                paddingVertical: 8,
+                borderRadius: 20,
+              }}
+            >
+              <Text
+                style={{
+                  fontWeight: "700",
+                }}
+              >
+                Final Score: {match.score}
+              </Text>
+            </View>
+
+            <View
+              style={{
+                marginTop: 15,
+              }}
+            >
+              <Text>⚽ Shots: {match.shots}</Text>
+              <Text>🎯 Passes: {match.passes}</Text>
+              <Text>🏆 FIFA World Cup</Text>
+            </View>
+
+            <View
+              style={{
+                marginTop: 18,
+                backgroundColor: "#2563EB",
+                padding: 14,
+                borderRadius: 12,
+              }}
+            >
+              <Text
+                style={{
+                  color: "white",
+                  textAlign: "center",
+                  fontWeight: "700",
+                }}
+              >
+                Generate AI Report
+              </Text>
+            </View>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
-  },
-  title: {
-    textAlign: 'center',
-  },
-  code: {
-    textTransform: 'uppercase',
-  },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
-  },
-});
